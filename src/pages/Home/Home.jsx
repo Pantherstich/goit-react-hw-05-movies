@@ -1,15 +1,15 @@
-import MoviesList from 'components/MoviesList/MoviesList';
+import MoviesList from 'components/MovieList/MovieList';
 import { useEffect, useState } from 'react';
 
-import { fetchMoviesData } from 'services/api';
+import { fetchData } from 'services/api';
 
 import { Title } from './Home.styled';
 
-const HomePage = () => {
+const Home = () => {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    fetchMoviesData('trending').then(({ results }) => {
+    fetchData('trending').then(({ results }) => {
       if (results.length > 0) {
         setMovies(results);
       }
