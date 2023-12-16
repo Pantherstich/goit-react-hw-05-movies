@@ -5,6 +5,7 @@ import { List, Item, Photo, Name, Info } from './Cast.styled';
 
 const imgUrl = 'https://image.tmdb.org/t/p/w200';
 const defaultImg = '//public/logo192.png';
+
 const Cast = () => {
   const { movieId } = useParams();
   const [cast, setCast] = useState([]);

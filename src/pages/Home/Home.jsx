@@ -10,6 +10,10 @@ const Home = () => {
 
   useEffect(() => {
     fetchData('trending').then(({ results }) => {
+      // if (!res.length) {
+      //   console.log('Error');
+      //   return;
+      // }
       if (results.length > 0) {
         setMovies(results);
       }

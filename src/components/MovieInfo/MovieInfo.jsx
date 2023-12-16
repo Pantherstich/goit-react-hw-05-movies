@@ -29,7 +29,7 @@ const MovieInfo = ({ movieData }) => {
         <Title>{`${movieData.title} (${
           movieData.release_date
             ? new Date(movieData.release_date).getFullYear()
-            : 'year unknown'
+            : 'unknown year'
         })`}</Title>
         <p>
           <LineHeader>Release date:</LineHeader>{' '}
@@ -41,7 +41,7 @@ const MovieInfo = ({ movieData }) => {
         <p>
           <LineHeader>Rating: </LineHeader>
           {movieData.vote_average === 0
-            ? 'Not rated'
+            ? 'unknow rate'
             : `${Math.round(movieData.vote_average * 10)}%`}
         </p>
         <p>
