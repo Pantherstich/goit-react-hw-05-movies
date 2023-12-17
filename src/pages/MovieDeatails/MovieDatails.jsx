@@ -1,56 +1,100 @@
+import { useParams, useLocation, Outlet } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Suspense, useRef } from 'react';
-
-import { Outlet, useLocation, useParams } from 'react-router-dom';
-import { fetchData } from 'services/api';
-import MovieInfo from 'components/MovieInfo/MovieInfo';
 import {
-  AdditionalInfo,
-  NavLinkInfo,
-  NavListInfo,
+  Style,
+  MovieImg,
+  MovieName,
+  AdditionalNav,
+  NavLinkStyled,
+  OverviewText,
+  GenresText,
+  GoBackLink,
+  NavList,
+  Movie,
+  MovieInfo,
+  GenresStyles,
 } from './MovieDetails.styled';
+import { Loader } from 'components/Loader/Loader';
+
+import { fetchMovieDetails } from 'services/api';
+
+const baseUrl = 'https://image.tmdb.org/t/p/w300';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
-  const [movieData, setMovieData] = useState(null);
-  const { state } = useLocation();
-  const navigate = useRef(state?.from ?? '/');
+  const [movie, setMovie] = useState(null);
+  const location = useLocation();
+  const backLink = useRef(location.state?.from ?? '/');
 
   useEffect(() => {
-    fetchData('movieById', Number(movieId))
-      .then(data => {
-        setMovieData(data);
-      })
-      .catch(err => {
-        console.error('Error:', err);
-        setMovieData(null);
-        setTimeout(() => {
-          // navigate('/');
-        }, 5000);
-      });
-  }, [movieId, navigate]);
+    const fetchData = async () => {
+      try {
+        if (movieId) {
+          const fetchedMovie = await fetchMovieDetails(movieId);
+          const releaseYear = new Date(fetchedMovie.release_date).getFullYear();
+          const percentage = (fetchedMovie.vote_average / 10) * 100;
+          setMovie({ ...fetchedMovie, releaseYear, percentage });
+        }
+      } catch (error) {
+        console.error('Error fetching movie details:', error);
+        setMovie(null);
+      }
+    };
+    fetchData();
+  }, [movieId]);
+
+  const defaultImg =
+    'https://cdn.pixabay.com/photo/2018/11/03/15/51/here-3792307_1280.png';
 
   return (
-    <>
-      <MovieInfo movieData={movieData} />
+    <main>
+      {movie && (
+        <Style>
+          <GoBackLink to={backLink?.from ?? '/'}>Go back</GoBackLink>
 
-      <AdditionalInfo>Additional information:</AdditionalInfo>
-      <NavListInfo>
-        <li>
-          <NavLinkInfo to="cast" state={{ from: state?.from }}>
-            Cast
-          </NavLinkInfo>
-        </li>
-        <li>
-          <NavLinkInfo to="reviews" state={{ from: state?.from }}>
-            Reviews
-          </NavLinkInfo>
-        </li>
-      </NavListInfo>
-      <Suspense fallback={<div>Loading page...</div>}>
-        <Outlet />
-      </Suspense>
-    </>
+          <Movie>
+            <MovieImg
+              src={
+                movie.poster_path
+                  ? `${baseUrl}${movie.poster_path}`
+                  : defaultImg
+              }
+            ></MovieImg>
+
+            <MovieInfo>
+              <MovieName>
+                {movie.title} ({movie.releaseYear})
+              </MovieName>
+              <h3>Rating: {Math.round(movie.percentage)}%</h3>
+              <h3>Overview</h3>
+              <OverviewText>{movie.overview}</OverviewText>
+              <h3>Genres</h3>
+              <GenresStyles>
+                {movie.genres.map(genre => (
+                  <GenresText key={genre.id}>{genre.name}</GenresText>
+                ))}
+              </GenresStyles>
+            </MovieInfo>
+          </Movie>
+          <AdditionalNav>
+            <h3>Additional information</h3>
+            <NavList>
+              <li>
+                <NavLinkStyled to="cast">Cast</NavLinkStyled>
+              </li>
+              <li>
+                <NavLinkStyled to="reviews">Reviews</NavLinkStyled>
+              </li>
+            </NavList>
+          </AdditionalNav>
+
+          <Suspense fallback={<Loader />}>
+            <Outlet />
+          </Suspense>
+        </Style>
+      )}
+    </main>
   );
 };
 

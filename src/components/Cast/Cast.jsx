@@ -1,20 +1,21 @@
-import { useEffect, useState } from 'react';
+import { Photo, Item, List, Name, Info, PhotoContainer } from './Cast.styled';
 import { useParams } from 'react-router-dom';
-import { fetchData } from 'services/api';
-import { List, Item, Photo, Name, Info } from './Cast.styled';
+import { useEffect, useState } from 'react';
+import { fetchCast } from 'services/api';
 
-const imgUrl = 'https://image.tmdb.org/t/p/w200';
-const defaultImg = '//public/logo192.png';
+const baseUrl = 'https://image.tmdb.org/t/p/w200';
+const defaultImg =
+  'https://cdn.pixabay.com/photo/2018/11/03/15/51/here-3792307_1280.png';
 
 const Cast = () => {
   const { movieId } = useParams();
-  const [cast, setCast] = useState([]);
+  const [movieCast, setMovieCast] = useState([]);
 
   useEffect(() => {
     if (movieId) {
-      fetchData('cast', movieId).then(({ cast }) => {
-        if (cast.length > 0) {
-          setCast(cast);
+      fetchCast(movieId).then(movies => {
+        if (movies.cast.length > 0) {
+          setMovieCast(movies.cast);
         }
       });
     }
@@ -23,20 +24,28 @@ const Cast = () => {
   return (
     <div>
       <List>
-        {cast.map(star => (
-          <Item key={star.id}>
-            <Photo
-              src={
-                star.profile_path ? `${imgUrl}${star.profile_path}` : defaultImg
-              }
-              alt={star.name}
-            />
-            <Name>{star.name}</Name>
-            <Info>as {star.character}</Info>
-          </Item>
-        ))}
+        {movieCast.map(movie => {
+          return (
+            <Item key={movie.id}>
+              <PhotoContainer>
+                <Photo
+                  src={
+                    movie.profile_path
+                      ? `${baseUrl}${movie.profile_path}`
+                      : defaultImg
+                  }
+                  alt=""
+                ></Photo>
+              </PhotoContainer>
+
+              <Name>{movie.name}</Name>
+              <Info>Character: {movie.character}</Info>
+            </Item>
+          );
+        })}
       </List>
     </div>
   );
 };
+
 export default Cast;

@@ -1,29 +1,22 @@
-import MoviesList from 'components/MovieList/MovieList';
-import { useEffect, useState } from 'react';
-
-import { fetchData } from 'services/api';
-
-import { Title } from './Home.styled';
+import { PageTitle } from './Home.styled';
+import MovieList from 'components/MoviesList/MoviesList';
+import { useState, useEffect } from 'react';
+import { fetchTrend } from 'services/api';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    fetchData('trending').then(({ results }) => {
-      // if (!res.length) {
-      //   console.log('Error');
-      //   return;
-      // }
-      if (results.length > 0) {
-        setMovies(results);
+    fetchTrend().then(movies => {
+      if (movies.results.length > 0) {
+        setMovies(movies.results);
       }
     });
   }, []);
-
   return (
     <main>
-      <Title>Trending today</Title>
-      <MoviesList movies={movies}></MoviesList>
+      <PageTitle>Popular today:</PageTitle>
+      <MovieList movies={movies}></MovieList>
     </main>
   );
 };

@@ -1,41 +1,36 @@
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Author, ReviewList, ReviewItem, ReviewText } from './Reviews.styled';
-import { fetchData } from 'services/api';
+import { Author, Item } from './Reviews.styled';
+import { useEffect, useState } from 'react';
+import { fetchReview } from 'services/api';
 
 const Reviews = () => {
   const { movieId } = useParams();
-  const [reviews, setReviews] = useState([]);
+  const [movieReview, setMovieReview] = useState([]);
 
   useEffect(() => {
-    if (!movieId) {
-      return;
+    if (movieId) {
+      fetchReview(movieId).then(movies => {
+        if (movies.results && movies.results.length > 0) {
+          setMovieReview(movies.results);
+        }
+      });
     }
-    fetchData('reviews', movieId).then(({ results }) => {
-      if (!results.length) {
-        console.log('Error');
-        return;
-      }
-      setReviews(results);
-    });
   }, [movieId]);
 
   return (
     <div>
-      <ReviewList>
-        {reviews.length > 0 ? (
-          reviews.map(review => (
-            <ReviewItem key={review.id}>
-              <Author>Author: {review.author}</Author>
-              <ReviewText>{review.content}</ReviewText>
-            </ReviewItem>
+      <ul>
+        {movieReview.length > 0 ? (
+          movieReview.map(movie => (
+            <Item key={movie.id}>
+              <Author>Author: {movie.author}</Author>
+              <p>{movie.content}</p>
+            </Item>
           ))
         ) : (
-          <ReviewItem key="no-reviews">
-            There is no review for this movie.
-          </ReviewItem>
+          <Item key="no-reviews">There is no review yet </Item>
         )}
-      </ReviewList>
+      </ul>
     </div>
   );
 };

@@ -1,31 +1,39 @@
-import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { fetchData } from 'services/api';
+import MovieDetails from 'pages/MovieDeatails/MovieDatails';
+import { Search } from 'components/Search/Search';
+import MoviesList from 'components/MoviesList/MoviesList';
+import { useState, useEffect } from 'react';
+import { useParams, useSearchParams } from 'react-router-dom';
 
-const MoviesPage = () => {
-  const [searchParams] = useSearchParams();
+import { fetchSearch } from 'services/api';
+
+const Movies = () => {
   const [movies, setMovies] = useState([]);
+  const { movieId } = useParams();
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get('query') || '';
 
   useEffect(() => {
-    const query = searchParams.get('query');
-    if (!query) return;
+    if (!movieId) return;
+  }, [movieId]);
 
-    fetchData('searchByQuery', 0, query)
-      .then(({ data }) => {
-        if (data.length > 0) {
-          setMovies(data);
+  const handleSubmit = value => {};
+
+  useEffect(() => {
+    if (query) {
+      fetchSearch(query).then(movies => {
+        if (movies.results.length > 0) {
+          setMovies(movies.results);
         }
-      })
-      .catch(err => {
-        console.error('Error:', err);
-        setMovies(null);
-        setTimeout(() => {
-          // navigate('/');
-        }, 5000);
       });
-  }, [searchParams]);
+    }
+  }, [query]);
 
-  return <div></div>;
+  return (
+    <main>
+      <Search onSubmit={handleSubmit}></Search>
+      <MoviesList movies={movies}></MoviesList>
+      <MovieDetails movieId={movieId}></MovieDetails>
+    </main>
+  );
 };
-
-export default MoviesPage;
+export default Movies;
