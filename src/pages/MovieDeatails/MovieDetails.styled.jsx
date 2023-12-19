@@ -1,10 +1,12 @@
 import styled from 'styled-components';
 import { Link, NavLink } from 'react-router-dom';
 
-export const Style = styled.div`
+export const MovieContainer = styled.div`
   display: flex;
+  margin: 16px;
+  padding: 16px;
   flex-direction: column;
-  border: 1px solid #ddd;
+  border: 1px solid #000000;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 16px;
 `;

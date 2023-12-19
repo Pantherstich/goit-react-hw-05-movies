@@ -2,7 +2,7 @@ import { useParams, useLocation, Outlet } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Suspense, useRef } from 'react';
 import {
-  Style,
+  MovieContainer,
   MovieImg,
   MovieName,
   AdditionalNav,
@@ -50,7 +50,7 @@ const MovieDetails = () => {
   return (
     <main>
       {movie && (
-        <Style>
+        <MovieContainer>
           <GoBackLink to={backLink?.from ?? '/'}>Go back</GoBackLink>
 
           <Movie>
@@ -92,7 +92,7 @@ const MovieDetails = () => {
           <Suspense fallback={<Loader />}>
             <Outlet />
           </Suspense>
-        </Style>
+        </MovieContainer>
       )}
     </main>
   );

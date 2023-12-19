@@ -24,10 +24,11 @@ export const Link = styled(NavLink)`
   color: black;
   font-weight: 500;
   &:hover {
-    box-shadow: 0px 0px 8px 0px rgba(255, 255, 255, 0.85);
+    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.85);
   }
   &.active {
     color: #e3a300d3;
     background-color: #000000;
+    box-shadow: none;
   }
 `;
