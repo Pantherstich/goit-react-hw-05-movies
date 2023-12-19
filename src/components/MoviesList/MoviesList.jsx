@@ -25,8 +25,8 @@ const MoviesList = ({ movies }) => {
                   defaultImg
                 )}
               </>
-              {name}{' '}
             </Link>
+            {name}{' '}
           </MovieItem>
         );
       })}
