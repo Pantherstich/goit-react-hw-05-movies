@@ -34,7 +34,7 @@ const Cast = () => {
                       ? `${baseUrl}${movie.profile_path}`
                       : defaultImg
                   }
-                  alt=""
+                  alt="Star"
                 ></Photo>
               </PhotoContainer>
 

@@ -23,14 +23,6 @@ const MoviesList = ({ movies }) => {
                       : defaultImg
                   }
                 ></MovieImg>
-                {/* {movie.poster_path ? (
-                  <MovieImg
-                    src={`${baseUrl}${movie.poster_path}`}
-                    alt="poster"
-                  />
-                ) : (
-                  defaultImg
-                )} */}
               </>
             </Link>
             {name}{' '}

@@ -5,8 +5,8 @@ export const Loader = () => {
     <>
       <MagnifyingGlass
         visible={true}
-        height="64"
-        width="64"
+        height="128"
+        width="128"
         ariaLabel="MagnifyingGlass-loading"
         wrapperStyle={{
           margin: '0 auto',
