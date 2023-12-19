@@ -15,15 +15,13 @@ const MoviesList = ({ movies }) => {
         return (
           <MovieItem key={movie.id}>
             <Link to={`/movies/${movie.id}`} key={movie.id} state={location}>
-              <>
-                <MovieImg
-                  src={
-                    movie.poster_path
-                      ? `${baseUrl}${movie.poster_path}`
-                      : defaultImg
-                  }
-                ></MovieImg>
-              </>
+              <MovieImg
+                src={
+                  movie.poster_path
+                    ? `${baseUrl}${movie.poster_path}`
+                    : defaultImg
+                }
+              ></MovieImg>
             </Link>
             {name}{' '}
           </MovieItem>

@@ -8,7 +8,9 @@ export const MovieList = styled.ul`
 `;
 export const MovieItem = styled.li`
   border-radius: 20px;
-  padding: 4px;
+  overflow: hidden;
+  padding-bottom: 8px;
+  /* padding: 4px; */
   list-style-type: none;
   width: 15%;
   position: relative;
@@ -25,8 +27,10 @@ export const MovieItem = styled.li`
   }
 `;
 export const MovieImg = styled.img`
+  /* object-fit: contain; */
+
   padding: 0;
   margin: 0;
   width: 100%;
-  border-radius: 16px 16px 0 0;
+  /* border-radius: 16px; */
 `;
