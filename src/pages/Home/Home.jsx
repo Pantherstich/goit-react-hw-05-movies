@@ -7,11 +7,17 @@ const Home = () => {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    fetchTrend().then(movies => {
-      if (movies.results.length > 0) {
+    fetchTrend()
+      .then(movies => {
+        if (!movies.results.length) {
+          console.log('sorry, something go wrong, try later');
+          return;
+        }
+
+        // if (movies.results.length > 0) {
         setMovies(movies.results);
-      }
-    });
+      })
+      .catch(() => console.log('sorry, something go wrong, try later'));
   }, []);
   return (
     <main>

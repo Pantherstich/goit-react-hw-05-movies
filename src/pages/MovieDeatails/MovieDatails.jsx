@@ -25,7 +25,7 @@ const MovieDetails = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   const location = useLocation();
-  const backLink = useRef(location.state?.from ?? '/');
+  const backLink = useRef(location);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,7 +51,7 @@ const MovieDetails = () => {
     <main>
       {movie && (
         <MovieContainer>
-          <GoBackLink to={backLink?.from ?? '/'}>Go back</GoBackLink>
+          <GoBackLink to={backLink.current.state}>Go back</GoBackLink>
 
           <Movie>
             <MovieImg

@@ -9,24 +9,25 @@ const MoviesList = ({ movies }) => {
 
   return (
     <MovieList>
-      {movies.map(movie => {
-        const name = movie.name ?? movie.title;
+      {movies.map(movie => (
+        // const name = movie.name ?? movie.title;
 
-        return (
-          <MovieItem key={movie.id}>
-            <Link to={`/movies/${movie.id}`} key={movie.id} state={location}>
-              <MovieImg
-                src={
-                  movie.poster_path
-                    ? `${baseUrl}${movie.poster_path}`
-                    : defaultImg
-                }
-              ></MovieImg>
-            </Link>
-            {name}{' '}
-          </MovieItem>
-        );
-      })}
+        // return (
+        <MovieItem key={movie.id}>
+          <Link to={`/movies/${movie.id}`} key={movie.id} state={location}>
+            <MovieImg
+              src={
+                movie.poster_path
+                  ? `${baseUrl}${movie.poster_path}`
+                  : defaultImg
+              }
+            ></MovieImg>
+            {<p>{movie.title}</p> || <p>{movie.name}</p>}
+          </Link>
+        </MovieItem>
+        // );
+      ))}
+      {movies.length === 0 && <p>Nothing found</p>}
     </MovieList>
   );
 };
