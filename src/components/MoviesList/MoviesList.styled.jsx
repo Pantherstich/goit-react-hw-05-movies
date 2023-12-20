@@ -12,7 +12,7 @@ export const MovieItem = styled.li`
   padding-bottom: 8px;
   /* padding: 4px; */
   list-style-type: none;
-  width: 22%;
+  width: 19%;
   position: relative;
   display: flex;
   flex-direction: column;
