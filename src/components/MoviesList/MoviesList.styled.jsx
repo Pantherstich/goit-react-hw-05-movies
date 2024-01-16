@@ -1,18 +1,23 @@
 import styled from 'styled-components';
 
 export const MovieList = styled.ul`
-  justify-self: center;
+  margin: 0 auto;
+  max-width: 1248px;
   display: flex;
-  gap: 16px;
   flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
 `;
 export const MovieItem = styled.li`
   border-radius: 20px;
   overflow: hidden;
+  width: 220px;
+
   padding-bottom: 8px;
-  /* padding: 4px; */
   list-style-type: none;
-  width: 19%;
+  @media screen and (max-width: 639px) {
+    font-size: 16px;
+  }
   position: relative;
   display: flex;
   flex-direction: column;
@@ -22,6 +27,7 @@ export const MovieItem = styled.li`
 
   transition: transform 300ms ease-in-out;
   &:hover {
+    font-weight: bold;
     background-color: rgba(255, 255, 255, 0.85);
     transform: scale(1.05);
   }

@@ -10,9 +10,6 @@ const MoviesList = ({ movies }) => {
   return (
     <MovieList>
       {movies.map(movie => (
-        // const name = movie.name ?? movie.title;
-
-        // return (
         <MovieItem key={movie.id}>
           <Link to={`/movies/${movie.id}`} key={movie.id} state={location}>
             <MovieImg
@@ -25,7 +22,6 @@ const MoviesList = ({ movies }) => {
             {<p>{movie.title}</p> || <p>{movie.name}</p>}
           </Link>
         </MovieItem>
-        // );
       ))}
       {movies.length === 0 && <p>Nothing found</p>}
     </MovieList>
