@@ -30,13 +30,13 @@ export const MovieItem = styled.li`
     font-weight: bold;
     background-color: rgba(255, 255, 255, 0.85);
     transform: scale(1.05);
+    border: 1px solid #0000004f;
   }
 `;
 export const MovieImg = styled.img`
-  /* object-fit: contain; */
+  object-fit: contain;
 
   padding: 0;
   margin: 0;
   width: 100%;
-  /* border-radius: 16px; */
 `;

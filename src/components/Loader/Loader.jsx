@@ -4,7 +4,6 @@ import { Wrapper } from './Loader.syled';
 export const Loader = () => {
   return (
     <Wrapper>
-      {/* <p>Loading... </p> */}
       <MagnifyingGlass
         visible={true}
         height="128"

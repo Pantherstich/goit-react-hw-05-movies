@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Container, Header, Link } from '../Layout/Layout.styled';
 import { Loader } from 'components/Loader/Loader';
+import { ScrollToTopButton } from 'components/ScrollUp/ScrollToTopButton';
 
 const Layout = () => {
   return (
@@ -15,6 +16,7 @@ const Layout = () => {
       <Suspense fallback={<Loader />}>
         <Outlet />
       </Suspense>
+      <ScrollToTopButton />
     </Container>
   );
 };
